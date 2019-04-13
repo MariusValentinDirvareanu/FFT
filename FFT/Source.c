@@ -1,4 +1,7 @@
 #include <stdio.h>
+#include <complex.h>
+#define _USE_MATH_DEFINES // for C
+#include <math.h>
 
 
 
@@ -28,6 +31,9 @@ int FFT(unsigned int n, float  r[64], float A[64], float B[64])
 {
 	float U[64], V[64];
 	int k;
+	_Dcomplex g;
+	// TODO : numar complex de tip float in loc de double 
+	g = cexp(2 * M_PI * cimagd(I) / n);
 	if (n == 1) {
 		return r;
 	}
@@ -38,6 +44,7 @@ int FFT(unsigned int n, float  r[64], float A[64], float B[64])
 	B = FFT(m, B, A, B);
 	for (k = 0; k < n; ++k) {
 		U[k] = A[k % m];
+		V[k] = B[k % m];
 	}
 }
 
